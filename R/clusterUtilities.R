@@ -371,7 +371,6 @@ plotClusterScatter <- function(coords, clusterIndices) {
       geom_point(size = 1.2, shape = 16) +
       theme_bw() +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-      scale_color_manual(values = clusterColors) # +
       scale_color_manual(values = clusterColors) + theme(legend.position="none") + xlab("x: (nm)")+ ylab("y: (nm)")
     # +
       # theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
