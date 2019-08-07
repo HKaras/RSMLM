@@ -368,10 +368,10 @@ plotClusterScatter <- function(coords, clusterIndices) {
     
     # plot using ggplot2
     ggplot(detectionList, aes(x = x, y = y, color = factor(clusterIndex))) + 
-      geom_point(size = 1.2, shape = 16) +
+      geom_point(size = 1.2, shape = 16) + xlab("x: (nm)")+ ylab("y: (nm)")+
       theme_bw() +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-      scale_color_manual(values = clusterColors)+ xlab("x: (nm)")+ ylab("y: (nm)") + theme(legend.position="none") 
+      scale_color_manual(values = clusterColors) + theme(legend.position="none") 
     # +
       # theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
       #       axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank(),
