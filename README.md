@@ -12,7 +12,7 @@ This package is under active devlopment and we havn't released a version on CRAN
 The **devtools** package can be used to install the development version directly from github:
 
 ```r
-install_github("jeremypike/RSMLM")
+install_github("HKaras/RSMLM")
 ```
 
 To run this command you will need [devtools](https://cran.r-project.org/package=devtools). Windows users will also need [Rtools](http://www.murdoch-sutherland.com/Rtools/).
