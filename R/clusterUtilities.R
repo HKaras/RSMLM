@@ -389,6 +389,70 @@ plotClusterScatter <- function(coords, clusterIndices) {
   
 }
 
+#' Save cluster scatter
+#' 
+#' Same as above but saves aswell
+
+
+saveClusterStats <- function(file, coords, clusterIndices){
+  
+  # dimensionallity of the data
+  numDimensions <- dim(coords)[2]
+  
+  if (numDimensions != 2) {
+    stop('Data should be 2D')
+  } 
+  
+  # check coords and clsterIndices have the same number of detections
+  numDetections <- dim(coords)[1]
+  if (numDetections != length(clusterIndices)) {
+    stop('coords and clusterIndices should have the same length')
+  }   
+  
+  # find unique clusters
+  uniqueClusters <- unique(clusterIndices)
+  
+  numClusters <- sum(uniqueClusters > 0)
+  
+  # contruct data frame from input data  
+  detectionList <- data.frame(x = coords[ , 1], y = coords[ , 2], clusterIndex = clusterIndices)
+  
+  # if there are clusters
+  if (numClusters > 0) {
+    
+    # generate cluster colours
+    colorMap <- as.character(distinctColorPalette(numClusters), luminosity = "dark")
+    
+    #if there are noise detections
+    if (0 %in% uniqueClusters) {
+      # plot these in black and ranomise order of other clusters
+      clusterColors <- c("black", sample(colorMap, numClusters))
+    } else {
+      clusterColors <- sample(colorMap, numClusters)
+    }
+    
+    # plot using ggplot2
+    ggplot(detectionList, aes(x = x, y = y, color = factor(clusterIndex))) + 
+      geom_point(size = 1.2, shape = 16) +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      scale_color_manual(values = clusterColors) +
+      theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
+            axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank(),
+            legend.position="none")
+    ggsave(file)
+  } else {
+    ggplot(detectionList, aes(x = x, y = y)) + 
+      geom_point(size = 1.2, shape = 16, color = "black") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
+            axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank(),
+            legend.position="none")
+    ggsave(file)
+    
+  }
+}
 
 
 #' Calculate per cluster statsitics
